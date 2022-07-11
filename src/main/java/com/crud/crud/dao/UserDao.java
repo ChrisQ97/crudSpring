@@ -1,2 +1,10 @@
-package com.crud.crud.dao;public interface UserDao {
+package com.crud.crud.dao;
+
+import com.crud.crud.models.User;
+
+import java.util.List;
+
+public interface UserDao {
+
+    List<User> getUsers();
 }

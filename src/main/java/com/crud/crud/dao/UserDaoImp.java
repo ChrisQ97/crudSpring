@@ -1,2 +1,23 @@
-package com.crud.crud.dao;public class UserDaoImp {
+package com.crud.crud.dao;
+
+import com.crud.crud.models.User;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+
+@Repository
+@Transactional
+public class UserDaoImp implements UserDao {
+
+    @PersistenceContext
+    EntityManager entityManager;
+
+    @Override
+    public List<User> getUsers() {
+        String query = "FROM User";
+        return entityManager.createQuery(query).getResultList();
+    }
 }

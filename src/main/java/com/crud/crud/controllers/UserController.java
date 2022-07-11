@@ -1,6 +1,8 @@
-package com.crud.crud.resources;
+package com.crud.crud.controllers;
 
+import com.crud.crud.dao.UserDao;
 import com.crud.crud.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +12,9 @@ import java.util.List;
 
 @RestController
 public class UserController {
+
+    @Autowired
+    private UserDao userDao;
 
     @RequestMapping(value = "user/{id}")
     public User getUser(@PathVariable Long id) {
@@ -21,14 +26,7 @@ public class UserController {
 
     @RequestMapping(value = "users")
     public List<User> getListOfUsers() {
-        List<User> users = new ArrayList<>();
-        for (Integer i = 1; i <= 20; i++) {
-            User user = new User(i, "name " + i.toString() ,
-                    "last name " + i.toString(), "email" + i.toString(),
-                    "12345678", "12345678");
-            users.add(user);
-        }
-        return users;
+        return userDao.getUsers();
     }
     @RequestMapping(value = "user1")
     public User update() {

@@ -5,6 +5,7 @@ import com.crud.crud.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -16,19 +17,19 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
-    @RequestMapping(value = "user/{id}")
-    public User getUser(@PathVariable Long id) {
+    @RequestMapping(value = "api/users/{id}", method = RequestMethod.GET)
+    public User getUser(@PathVariable Integer id) {
         User user = new User(1, "christian",
                 "quijivix", "email@gmail.com",
                 "12345678", "12345678");
         return user;
     }
 
-    @RequestMapping(value = "users")
+    @RequestMapping(value = "api/users")
     public List<User> getListOfUsers() {
         return userDao.getUsers();
     }
-    @RequestMapping(value = "user1")
+    @RequestMapping(value = "api/users/{id}", method = RequestMethod.PUT)
     public User update() {
         User user = new User(1, "christian",
                 "quijivix", "email@gmail.com",
@@ -36,11 +37,8 @@ public class UserController {
         return user;
     }
 
-    @RequestMapping(value = "user2")
-    public User delete() {
-        User user = new User(1, "christian",
-                "quijivix", "email@gmail.com",
-                "12345678", "12345678");
-        return user;
+    @RequestMapping(value = "api/users/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable int id) {
+        userDao.delete(id);
     }
 }
